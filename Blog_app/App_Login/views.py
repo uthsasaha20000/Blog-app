@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
+
 def sign_up(request):
     registered = False
     form = UserCreationForm()
@@ -14,3 +15,4 @@ def sign_up(request):
 
     context = {'form': form, 'registered': registered}
     return render(request, 'App_Login/sign_up.html', context)
+

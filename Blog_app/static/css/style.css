@@ -1,0 +1,10 @@
+.centered-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as needed to center vertically */
+}
+
+.form-container {
+    width: 300px; /* Adjust as needed */
+}

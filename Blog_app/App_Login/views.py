@@ -1,20 +1,21 @@
 from django.shortcuts import render,HttpResponseRedirect
+from App_Login.forms import CreateNewUser
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse
 # Create your views here.
 
 def sign_up(request):
+    form = CreateNewUser()
     registered = False
-    form = UserCreationForm()
-
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CreateNewUser(data=request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             registered = True
+            pass
 
-    context = {'form': form, 'registered': registered}
+    context = {'tittle':'sign_up','form': form, 'registered': registered}
     return render(request, 'App_Login/sign_up.html', context)
 
 def login_page(request):

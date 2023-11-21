@@ -2,11 +2,7 @@
 
 {% block title_block %}Signup{% endblock %}
 {% block body_block %}
-  {% if registered %}
-    <div class="alert alert-success">
-      Account created successfully <a href="{% url 'App_Login:login' %}">Login Here</a>
-    </div>
-  {% else %}
+
     <h2>Create New Account</h2>
     <form method="POST">
       {% csrf_token %}
@@ -15,5 +11,5 @@
     </form>
     <br>
     <p>Already have an account? <a href="{% url 'App_Login:login' %}">Log in here</a></p>
-  {% endif %}
+  
 {% endblock %}

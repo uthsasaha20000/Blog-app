@@ -15,13 +15,14 @@ def sign_up(request):
             user = form.save()
             registered = True
             user_profile=UserProfile(user=user)
+            request.session['registered']=registered
             return HttpResponseRedirect(reverse('App_Login:login'))
 
     context = {'tittle':'sign_up','form': form, 'registered': registered}
     return render(request, 'App_Login/sign_up.html', context)
 
 def login_page(request):
-    registered=False
+    registered= request.session.get('registered',None)
     form = AuthenticationForm()
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)

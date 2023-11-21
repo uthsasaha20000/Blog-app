@@ -2,6 +2,11 @@
 
 {% block title_block %} Login {% endblock %}
 {% block body_block %}
+{% if registered %}
+<div class="alert alert-success">
+  Account created successfully <a href="{% url 'App_Login:login' %}">Login Here</a>
+</div>
+{% else %}
 <div class="centered-form">
     <div class="form-container">
      <h2>Login:</h2>
@@ -12,4 +17,5 @@
     </form>
     </div>
 </div>
+{% endif %}
 {% endblock %}

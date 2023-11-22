@@ -22,7 +22,13 @@ def sign_up(request):
     return render(request, 'App_Login/sign_up.html', context)
 
 def login_page(request):
-    registered= request.session.get('registered',None)
+ 
+    try:
+      registered= request.session.get('registered',None)
+      del request.session['registered']
+    except:
+      registered=False
+
     form = AuthenticationForm()
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)

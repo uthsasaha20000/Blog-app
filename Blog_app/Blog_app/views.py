@@ -5,4 +5,4 @@ from django.contrib.auth.decorators import login_required
 
 
 def Index(request):
-    return HttpResponseRedirect(reverse('App_Blog:blog_list'))
+    return HttpResponseRedirect(reverse('App_Login:login'))

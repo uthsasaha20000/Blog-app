@@ -11,3 +11,6 @@ class UserProfile(models.Model):
     dob=models.DateField(null=True)
     city=models.CharField(null=True,max_length=15)
     bio=models.CharField(null=True,max_length=50)
+
+    def __str__(self):
+     return self.user.username

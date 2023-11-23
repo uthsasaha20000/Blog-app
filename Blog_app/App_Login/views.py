@@ -15,10 +15,10 @@ def sign_up(request):
         form = CreateNewUser(data=request.POST)
         if form.is_valid():
             user = form.save()
-            print(user,"aaaaaaaaaaa")
+            
             registered = True
             user_profile=UserProfile(user=user)
-            print(user_profile,"bbbbbbbbbbbbbbbb")
+            
             user_profile.save()
             request.session['registered']=registered
             return HttpResponseRedirect(reverse('App_Login:login'))
@@ -34,18 +34,16 @@ def login_page(request):
     except:
       registered=False
 
-    form = AuthenticationForm()
+
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+        
+            username = request.POST.get('username')
+            password = request.POST.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                #registered=True
                 return HttpResponseRedirect(reverse('App_Blog:blog_list'))
-    context={'tittle':'login','form':form,'registered':registered}
+    context={'registered':registered}
     return render(request, 'App_Login/login.html',context)
 
 @login_required

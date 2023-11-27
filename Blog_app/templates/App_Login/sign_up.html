@@ -17,73 +17,94 @@
 
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background-color: #521a98;
-        color: #fff;
-      }
-      
-      .centerbox {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      
-      .signup-form {
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        max-width: 400px;
-        width: 100%;
-        text-align: center;
-      }
-      
-      .signup-form input {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-        box-sizing: border-box;
-      }
-      
-      .signup-form button {
-        background-color: #521a98;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  
+}
 
-      
+
+body{
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(75,14,154,1) 35%, rgb(114, 87, 144) 100%);
+    font-family: 'Poppins', sans-serif;
+
+}
+form{
+    border-radius: 20px;
+    margin-top: 150px !important;
+    width: 24% !important;
+    background-color: white !important;
+    padding: 50px;
+}
+
+.btn-primary{
+    width: 100%;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(75,14,154,1) 35%, rgb(43, 0, 255) 100%);
+    
+}
+
+.form-control{
+    color: rgba(0,0,0,.87);
+    border-bottom-color: rgba(0,0,0,.42);
+    box-shadow: none !important;
+    border: none;
+    border-bottom: 1px solid;
+    border-radius: 4px 4px 0 0;
+    }
+ h4{
+    font-size: 2rem !important;
+    font-weight: 700;
+ }  
+ .form-label{
+    font-weight: 800 !important;
+ }
+@media only screen and (max-width: 600px) {
+    form {
+        width: 100% !important;
+    }
+  }
+
+q.signin{
+    display: flex;
+    align-items: center;
+  }
     </style>
 
     <!-- ---------------------------------CSS End------------------------------- -->
-    {% if registered %}
-      <div class="alert alert-success">
-         Account created successfully 
-       </div>
-       {% endif %}
+  
     
         <div class="container-fluid">
-          <img src="{% static 'image/logo2.png' %}" alt="Logo" class="mx-auto d-block" style="max-width: 150px; margin-top: 30px;">
-     
-    <h2 style="text-align:center;">Create New Account</h2>
-    <div class="centerbox">
-   <form method="POST">
-  {% csrf_token %}
-  
-  {{ form.as_p}}
-  <button type="submit" class="btn btn-success btn-sm">Create Account</button>
-  
-</form>
-</div>
-</br>
-<p>Already have an account? <a href="{% url 'App_Login:login' %}">Log in here</a></p>
-          
+          <img src="{% static 'image/logo2.png' %}" alt="Logo" class="mx-auto d-block" style="max-width: 150px; margin-top: 30px; border-radius:19px;">
+            <form class="mx-auto mt-2 mb-5" method="post">
+              {% csrf_token %}
+                <h4 class="text-center">Sign up</h4>
+                <div class="mb-3 mt-5">
+                  <label for="exampleInputEmail1" class="form-label">User Name</label>
+                  <<input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3 mt-5">
+                  <label for="exampleInputEmail1" class="form-label">Email</label>
+                  <<input type="text" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" >
+                  
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword" class="form-label">Confirm Password</label>
+                  <input type="password" class="form-control" id="password2" name="confirm password" >
+                  
+                </div>
+              
+                <button type="submit" class="btn btn-primary mt-5">Login</button>
+                <br>
+                <br>
+                <p>Don't have an account?<a href="{% url 'App_Login:signup' %}">Signup</a></p>
+              </form>
               
         </div>
 
@@ -93,34 +114,3 @@
 
   </body>
 </html> 
-
-
-<!--<h2>Create New Account</h2>
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p}}
-  <button type="submit" class="btn btn-success btn-sm">Create Account</button>
-</form>
-<br>
-<p>Already have an account? <a href="{% url 'App_Login:login' %}">Log in here</a></p>
-
-
-
-<form class="mx-auto mt-2 mb-5" method="post">
-  {% csrf_token %}
-    <h4 class="text-center">Login</h4>
-    <div class="mb-3 mt-5">
-      <label for="exampleInputEmail1" class="form-label">User Name</label>
-      <<input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" name="password" >
-      
-    </div>
-  
-    <button type="submit" class="btn btn-primary mt-5">Login</button>
-    <br>
-    <br>
-    <p>Don't have an account?<a href="{% url 'App_Login:signup' %}">Signup</a></p>
-  </form>-->

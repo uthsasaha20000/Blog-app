@@ -793,7 +793,7 @@ main .container .right{
             </div>
         </div>
     </nav>
-
+    {%block body_block%}
     <!-- Main -->
     <main>
         <div class="container">
@@ -896,7 +896,7 @@ main .container .right{
                     </a>                        
                 </div>
                 <!-- ------------end sidebar------------- -->
-                <label for="create-post" class="btn btn-primary">Create Post</label>
+                <a href="{% url 'App_Login:logout' %}" for="create-post" class="btn btn-primary">Logout</a>
             </div>
 
             <!-- -----------------end of left-------------- -->
@@ -1748,5 +1748,6 @@ const changeBG = () => {
 
 // End
     </script>
+    {% endblock %}
 </body>
 </html>

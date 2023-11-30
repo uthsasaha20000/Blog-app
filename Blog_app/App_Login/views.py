@@ -6,22 +6,30 @@ from django.urls import reverse
 from App_Login.models import UserProfile
 from django.contrib.auth.decorators import login_required
 from App_Login.models import UserProfile
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
 # Create your views here.
 
 def sign_up(request):
     form = CreateNewUser()
     registered = False
     if request.method == 'POST':
-        form = CreateNewUser(data=request.POST)
-        if form.is_valid():
-            user = form.save()
+        #form = CreateNewUser(data=request.POST)
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password2= request.POST.get('password2')
+        if password != password2:
+            messages.error(request, "Passwords do not match")
+            return HttpResponseRedirect(reverse('App_Login:signup'))  # Replace 'signup' with the URL name of your signup page
+        user = User.objects.create_user(username=username, email=email, password=password)
+        registered = True
+        user_profile=UserProfile(user=user)
             
-            registered = True
-            user_profile=UserProfile(user=user)
-            
-            user_profile.save()
-            request.session['registered']=registered
-            return HttpResponseRedirect(reverse('App_Login:login'))
+        user_profile.save()
+        request.session['registered']=registered
+        return HttpResponseRedirect(reverse('App_Login:login'))
 
     context = {'tittle':'sign_up','form': form, 'registered': registered}
     return render(request, 'App_Login/sign_up.html', context)

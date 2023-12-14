@@ -1,3 +1,4 @@
+{%load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -778,7 +779,7 @@
 <body>
     <nav>
         <div class="container">
-            <h2 class="log">BAIUST</h2>
+            <img src="{% static 'image/logo2.png' %}" alt="BAIUST" style="height:60px;max-width:150px;border-radius:19px;">
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="search" placeholder="search creators, projects & inpirations">
@@ -813,8 +814,8 @@
                     <a class="menu-item active">
                         <span><i class="fa-solid fa-house"></i></span><h3>Home</h3>                       
                     </a>
-                    <a class="menu-item">
-                        <span><i class="fa-solid fa-compass"></i></span><h3>Profile</h3>                      
+                    <a class="menu-item" href="{% url 'App_Login:edit' %}" >
+                        <span><i class="fa-solid fa-compass" ></i></span><h3>Profile</h3>                      
                     </a>
                     <a class="menu-item" id="notifications">
                         <span><i class="fa-solid fa-bell"><small class="notification-count">8+</small></i></span><h3>Notification</h3> 

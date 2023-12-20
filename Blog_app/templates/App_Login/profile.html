@@ -907,9 +907,17 @@
               <form method="post"  enctype="multipart/form-data">
                 {% csrf_token %}
                 
-                {{ form.as_p }}
-                
-                <button type="submit" class="btn btn-primary">Submit</button>
+             {% for field in form %}
+             <div class="form-field" style="margin-bottom:10px;">
+             {{ field.label_tag }}
+             </br>
+             {{ field }}
+            </div>
+    {% endfor %}
+                <button type="submit" class="btn btn-primary">Edit</button>
+                </br>
+                </br>
+                <a href="{% url 'App_Login:profile' %}" style="background-color: red; padding: 8px; border-radius: 19px; color: white; width: 200px;">Cancel</a>
               </form>
         </div>
     </main>

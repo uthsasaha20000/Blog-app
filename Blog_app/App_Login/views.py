@@ -9,6 +9,7 @@ from App_Login.models import UserProfile
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
+from App_Blog.forms import PostForm
 # Create your views here.
 
 def sign_up(request):
@@ -75,5 +76,12 @@ def logout_user(request):
 #
 @login_required
 def profile(request):
-
-    return render(request, 'App_Login/user.html', context={})
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return HttpResponseRedirect(reverse('home'))
+    return render(request, 'App_Login/user.html', context={'title':'User', 'form': form})

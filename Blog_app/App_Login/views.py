@@ -51,7 +51,7 @@ def login_page(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect(reverse('App_Blog:blog_list'))
+                return HttpResponseRedirect(reverse('App_Blog:home'))
     context={'registered':registered}
     return render(request, 'App_Login/login.html',context)
 

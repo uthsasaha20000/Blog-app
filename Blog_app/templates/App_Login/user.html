@@ -792,7 +792,14 @@
 
 
         }
- 
+        .row{
+            margin-top:20px;
+        }
+        .row img{
+            height:300px;
+            width:300px;
+            margin-bottom:100px;
+        }
     </style>
    
     <script src="https://kit.fontawesome.com/b8513cf641.js" crossorigin="anonymous"></script>
@@ -945,16 +952,23 @@
 </br>
 <div id="myForm">
 <form method="POST" enctype="multipart/form-data">
-    <h3>Create a new post.</h3>
+    <h3>Upload a new photo</h3>
 </br>
     {{form.as_p}}
+    {% csrf_token %}
 </br>
 
 </br>
 <button id="cancelPost" style="width:80px;padding:15px;background-color:red;border-radius:19px;color:white;margin-right:350px">Cancel</button>
-<button type="submit" id="post" style="width:80px;padding:15px;background-color:#0004ff;border-radius:19px;color:white;">Post</button> 
+<button type="submit" id="post" style="width:80px;padding:15px;background-color:#0004ff;border-radius:19px;color:white;">Upload</button> 
   </form>
 </div>
+
+<div class="row">
+    {% for post in user.post.all %}
+      <img src="/media/{{post.image}}" title="{{post.caption}}">
+    {% endfor %}
+  </div>
 
 
         </div>

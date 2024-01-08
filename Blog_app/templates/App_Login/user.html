@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BAIUST Super App</title>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Moon+Dance&family=Poppins:wght@300;400;500;600&display=swap');
 
@@ -782,6 +781,7 @@
             margin-bottom:40px;
             padding:25px;
             border-radius:19px;
+            display:none;
             
             
         }
@@ -792,6 +792,7 @@
 
 
         }
+ 
     </style>
    
     <script src="https://kit.fontawesome.com/b8513cf641.js" crossorigin="anonymous"></script>
@@ -938,11 +939,12 @@
             </br>
         </br>
         <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" id="new_post">
+<button class="btn btn-primary" id="new_post">
     New Post
   </button>
 </br>
-<form id="myForm" method="POST" enctype="multipart/form-data" style="display:none;">
+<div id="myForm">
+<form method="POST" enctype="multipart/form-data">
     <h3>Create a new post.</h3>
 </br>
     {{form.as_p}}
@@ -950,8 +952,9 @@
 
 </br>
 <button id="cancelPost" style="width:80px;padding:15px;background-color:red;border-radius:19px;color:white;margin-right:350px">Cancel</button>
-<button id="post" style="width:80px;padding:15px;background-color:#0004ff;border-radius:19px;color:white;">Post</button> 
+<button type="submit" id="post" style="width:80px;padding:15px;background-color:#0004ff;border-radius:19px;color:white;">Post</button> 
   </form>
+</div>
 
 
         </div>
@@ -1016,240 +1019,26 @@
         
       
     
-    <script>
-const newPost= document.querySelectorAll('#new_post');
+<script>
+const myForm=document.getElementById('myForm');
+const new_post= document.getElementById('new_post');
 const postButton= document.querySelectorAll('#post');
-const cancelPost= document.querySelectorAll('#cancelPost');           
-    // Sidebar
-const menuItems = document.querySelectorAll('.menu-item');
-
-// Messages
-const messagesNotification = document.querySelector('#messeges-notification');
-const messages = document.querySelector('.messages');
-const message = messages.querySelectorAll('.message');
-const messageSearch = document.querySelector('#message-search');
-
-// Theme
-const theme = document.querySelector('#theme');
-const themeModal = document.querySelector('.customize-theme');
-const fontSizes = document.querySelectorAll('.choose-size span');
-var root = document.querySelector(':root');
-const colorPlette = document.querySelectorAll('.choose-color span');
-const Bg1 = document.querySelector('.bg-1');
-const Bg2 = document.querySelector('.bg-2');
-const Bg3 = document.querySelector('.bg-3');
-const new_post=document.querySelector('#new_post');
+const cancelPost= document.getElementById('cancelPost');           
 // ------------------------------------------Sidebar-------------------------------------
 
-
-newPost.addEventListener('click', function() {
-    // Your code to be executed when the element is clicked
-    form=document.getElementById('#myForm');
-    form.style.display = 'block';
-    
+cancelPost.addEventListener('click',function(){
+    myForm.style.display=='none';
 });
-// Remove active class from all menu items
-const changeActiveItem = () => {
-    menuItems.forEach(item => {
-        item.classList.remove('active');
-    })
-}
 
-menuItems.forEach(item => {
-    item.addEventListener('click', () => {
-        changeActiveItem();
-        item.classList.add('active');
-        if(item.id != 'notifications'){
-            document.querySelector('.notifications-popup').style.display = 'none';
-        }
-        else{
-            document.querySelector('.notifications-popup').style.display = 'block';
-            document.querySelector('#notifications .notification-count').style.display = 'none';
-        }
-    })
-})
-
-
-// ------------------------------------------Messages-------------------------------------
-// Searches chats
-const searchMessage = () => {
-    const val = messageSearch.value.toLowerCase();
-    message.forEach(user => {
-        let name = user.querySelector('h5').textContent.toLowerCase();
-        if(name.indexOf(val) != -1){
-            user.style.display = 'flex';
-        }
-        else{
-            user.style.display = 'none';
-        }
-    })
-}
-
-// Search chat
-messageSearch.addEventListener('keyup', searchMessage);
-
-// Highlight messege-card when it is selected
-messagesNotification.addEventListener('click', () => {
-    messages.style.boxShadow = '0 0 1rem var(--color-primary)';
-    messagesNotification.querySelector('.notification-count').style.display = 'none';
-    setTimeout(() => {
-        messages.style.boxShadow = 'none';
-    }, 2000);
-})
-
-
-
-// ------------------------------------------Theme/Display customization-------------------------------------
-
-// open modal
-const openThemeModal = () => {
-    themeModal.style.display = 'grid';
-}
-
-// close modal on cilck
-const closeThemeModal = (e) => {
-    if(e.target.classList.contains('customize-theme')){
-        themeModal.style.display = 'none';
-    }
-}
-
-// close modal
-themeModal.addEventListener('click', closeThemeModal);
-
-theme.addEventListener('click', openThemeModal);
-
-
-
-// ------------------Fonts------------------------------
-
-// remove active class from spans or font size selectors
-const removeSizeSelector = () => {
-    fontSizes.forEach(size => {
-        size.classList.remove('active');
-    })
-}
-
-fontSizes.forEach(size => {
+new_post.addEventListener('click', function() {
    
+    myForm.style.display = myForm.style.display === 'none' ? 'block' : 'none';
+});
 
-    size.addEventListener('click',  () => {
-        removeSizeSelector();
-        let fontSize;
-        size.classList.toggle('active');
-
-        if(size.classList.contains('font-size-1')){
-            fontSize = '10px';
-            root.style.setProperty('----sticky-top-left', '5.4rem');
-            root.style.setProperty('----sticky-top-right', '5.4rem');
-        }
-        else if (size.classList.contains('font-size-2')){
-            fontSize = '13px';
-            root.style.setProperty('----sticky-top-left', '5.4rem');
-            root.style.setProperty('----sticky-top-right', '-7rem');
-        }
-        else if (size.classList.contains('font-size-3')){
-            fontSize = '16px';
-            root.style.setProperty('----sticky-top-left', '-2rem');
-            root.style.setProperty('----sticky-top-right', '-17rem');
-        }
-        else if (size.classList.contains('font-size-4')){
-            fontSize = '19px';
-            root.style.setProperty('----sticky-top-left', '-5rem');
-            root.style.setProperty('----sticky-top-right', '-25rem');
-        }
-        else if (size.classList.contains('font-size-5')){
-            fontSize = '22px';
-            root.style.setProperty('----sticky-top-left', '-10rem');
-            root.style.setProperty('----sticky-top-right', '-33rem');
-        }
-
-        // Change font size of root html element
-    document.querySelector('html').style.fontSize = fontSize;
-    })
-   
-})
-
-// Remove active class from colors
-const changeActiveColorClass = () => {
-    colorPlette.forEach(colorPicker => {
-        colorPicker.classList.remove('active');
-    })
-}
-
-
-// Change primary colors
-colorPlette.forEach(color => {
-    color.addEventListener('click', () => {
-        let primary;
-        // remove active
-        changeActiveColorClass();
-
-        if(color.classList.contains('color-1')){
-            primaryHue = 252;
-        }else if(color.classList.contains('color-2')){
-            primaryHue = 52;
-        }else if(color.classList.contains('color-3')){
-            primaryHue = 352;
-        }else if(color.classList.contains('color-4')){
-            primaryHue = 152;
-        }else if(color.classList.contains('color-5')){
-            primaryHue = 202;
-        }
-        color.classList.add('active');
-
-        root.style.setProperty('--primary-color-hue', primaryHue);
-    })
-})
-
-
-// Theme background values
-let lightColorLightness;
-let whiteColorLightness;
-let darkColorLightness;
-
-// Changes background color
-const changeBG = () => {
-    root.style.setProperty('--light-color-lightness', lightColorLightness);
-    root.style.setProperty('--white-color-lightness', whiteColorLightness);
-    root.style.setProperty('--dark-color-lightness', darkColorLightness);
-}
-
-    Bg1.addEventListener('click', () => {
-        // add active class
-        Bg1.classList.add('active');
-        // Remove active class from others
-        Bg2.classList.remove('active');
-        Bg3.classList.remove('active');
-        // Remove customized changes from local storage
-        window.location.reload();
-    })
-
-    Bg2.addEventListener('click', () => {
-    darkColorLightness = '95%';
-    whiteColorLightness = '20%';
-    lightColorLightness = '15%';
-    // add active class
-    Bg2.classList.add('active');
-    // Remove active class from others
-    Bg1.classList.remove('active');
-    Bg3.classList.remove('active');
-    changeBG();   
-})
-
-    Bg3.addEventListener('click', () => {
-    darkColorLightness = '95%';
-    whiteColorLightness = '10%';
-    lightColorLightness = '0%';
-    // add active class
-    Bg3.classList.add('active');
-    // Remove active class from others
-    Bg1.classList.remove('active');
-    Bg2.classList.remove('active');
-    changeBG();   
-})
+    
 
 // End
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   
 </body>
 </html>

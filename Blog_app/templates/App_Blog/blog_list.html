@@ -896,10 +896,28 @@
             <!-- -----------------end of left-------------- -->
 
             <!-- Middle -->
-            <div class="middle">
+            <div class="middle" style="margin:30px;">
+               {% if search %}
+               {% for user in result %}
+               <div class="row" style="width:80vw;height:100px;display:flex; justify-content:space-between; background-color:white;border-radius:16px; align-items:center;">
+                <div style="">
+                {% if user.user_profile.profile_pic %}
+               <img src="/media/{{user.user_profile.profile_pic}}" alt="" style="width:150px;height:100px; margin-left:10px;">
+               {% else %}
+               <img src="/media/default.png" alt="" style="width:150px;height:100px;margin-left:10px;">
+               {% endif %}
+                </div>
+               <a style="display:inline-block; width:150px; height:50px;padding:10px; margin-left:530px;color:white; background-color:#319DC1;">
+               {{user.username}}
+             
+               </a>
+               {% endfor %}
+               <br>
+               {% else %}
 
-                   
-                    </div>
+               {% endif%}
+            
+            </div>
                     <!-- ---------------------------------------Message 5---------------------------------- -->
                 
 

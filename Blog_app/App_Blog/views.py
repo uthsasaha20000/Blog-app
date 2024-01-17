@@ -28,11 +28,11 @@ def liked(request, pk):
     if not already_liked:
         liked_post = Like(post=post, user=request.user)
         liked_post.save()
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('App_Blog:home'))
 
 @login_required
 def unliked(request, pk):
     post = Post.objects.get(pk=pk)
     already_liked = Like.objects.filter(post=post, user=request.user)
     already_liked.delete()
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse('App_Blog:home'))

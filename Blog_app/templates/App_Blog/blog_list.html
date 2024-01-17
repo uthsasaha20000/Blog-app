@@ -917,14 +917,10 @@
   {% for post in posts %}
  <div style="border: 1px solid #888888;">
    <div style="padding:10px">
-     {% if post.author.user_profile.profile_pic %}
-       <img src="/media/{{user.user_profile.profile_pic}}" width="40px" height="40px" class="rounded-circle">
-     {% else %}
-       <img src="/media/default.png" width="40px" height="40px" class="rounded-circle">
-     {% endif %}
+   
      <a href="{% url 'App_Login:user' username=post.author %}">{{post.author}}</a>
    </div>
-   <img src='/media/{{post.image}}' width="100%">
+   <img src='/media/{{post.image}}' width="100%" height="500px">
    <div style="padding:20px">
      {{post.caption}}<br>
      {{ post.liked_post.count }} Likes <br>

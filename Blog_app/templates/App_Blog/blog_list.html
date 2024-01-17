@@ -907,7 +907,7 @@
                <img src="/media/default.png" alt="" style="width:150px;height:100px;margin-left:10px;">
                {% endif %}
                 </div>
-               <a style="display:inline-block; width:150px; height:50px;padding:10px; margin-left:530px;color:white; background-color:#319DC1;">
+               <a href="{% url 'App_Login:user' username=user.username %}"style="display:inline-block; width:150px; height:50px;padding:10px; margin-left:530px;color:white; background-color:#319DC1;">
                {{user.username}}
              
                </a>
